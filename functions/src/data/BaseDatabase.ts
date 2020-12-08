@@ -1,18 +1,19 @@
 import knex from "knex"
 import Knex from "knex"
 
-
 export abstract class BaseDatabase {
 
     protected resultPerPage: number = 10;
 
     protected tableNames = {
         user: "USUARIO",
+        relation: 'RELACOES',
         group: 'GRUPO',
-        event: 'EVENTO',
+        pageEvent: 'EVENTO',
         page: 'PAGINA',
+        pageLikes: 'CURTIDAS_PAGINA',
         post: 'POST',
-        relation: 'RELACOES'
+        postLikes: 'CURTIDAS_POST'
       };
 
 

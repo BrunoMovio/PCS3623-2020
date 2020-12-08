@@ -90,9 +90,9 @@ export class UserController {
                 new UserDatabase,
                 new IdGenerator
             );
-            const feed = await userBusiness.getAll();
+            const users = await userBusiness.getAll();
 
-            res.status(200).send({ feed });
+            res.status(200).send({ users });
 
         } catch (error) {
             res.status(400).send({ error: error.message });

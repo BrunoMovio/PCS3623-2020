@@ -1,9 +1,12 @@
 import dotenv from "dotenv"
 import {AddressInfo} from "net"
 import express from "express"
-import {imageRouter} from "./routes/ImageRouter";
-import {musicRouter} from "./routes/MusicRouter";
 import {userRouter} from "./routes/UserRouter";
+import { groupRouter } from "./routes/GroupRouter";
+import { postRouter } from "./routes/PostRouter";
+import { eventRouter } from "./routes/EventRouter";
+import { pageRouter } from "./routes/PageRouter";
+
 
 dotenv.config();
 const app = express();
@@ -11,8 +14,10 @@ const app = express();
 app.use(express.json());
 
 app.use("/user", userRouter);
-app.use('/image', imageRouter);
-app.use('/music', musicRouter);
+app.use("/group", groupRouter);
+app.use("/post", postRouter);
+app.use("/pageEvent", eventRouter);
+app.use("/page", pageRouter);
 
 const server = app.listen(3000, () => {
   if (server) {

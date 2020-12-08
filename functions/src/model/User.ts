@@ -4,7 +4,8 @@ export class User{
     private name: string,
     private email: string,
     private phone: string,
-    private avatar: string
+    private avatar: string,
+    private groupId?: string
     ){}
 
     getId(){
@@ -27,6 +28,10 @@ export class User{
         return this.avatar
     }
 
+    getGroupId(){
+        return this.groupId
+    }
+
     setId(id: string){
         this.id = id
     }
@@ -47,8 +52,12 @@ export class User{
         this.avatar = avatar
     }
 
+    setGroupId(groupId: string){
+        this.groupId = groupId
+    }
+
     static toUserModel(user: any): User {
-        return new User(user.id, user.name, user.email, user.phone, user.avatar)
+        return new User(user.id, user.name, user.email, user.phone, user.avatar, user.groupId || user.group_id)
     }
 }
 

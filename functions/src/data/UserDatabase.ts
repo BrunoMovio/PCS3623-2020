@@ -1,5 +1,6 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { Relation, SearchUserOutputDTO, User } from "../model/User";
+import { Post } from "../model/Post";
 
 export class UserDatabase extends BaseDatabase {
   public async getUserByPartialName(partialName: string): Promise<SearchUserOutputDTO[]> {
@@ -62,18 +63,18 @@ export class UserDatabase extends BaseDatabase {
   }
 
   //TODO: implement Post class
-  public async getFeedByUserId(userId: string): Promise<{posts: any[]}> {
+  public async getFeedByUserId(userId: string): Promise<Post[]> {
     try {
       const myPosts = await this.getConnection()
           .select('*')
           .from(this.tableNames.post)
           .where({ user_id: userId })
 
-      return {
-        posts: myPosts.map((result) => {
-          return result.reduce((acc, val) => acc.concat(val), []);
-        }).reduce((acc, val) => acc.concat(val), []), 
-      }
+        return myPosts.map((item) => {
+          return Post.toPostModel({
+            ...item
+          })
+        })
     } catch (error) {
       throw new Error(error.sqlMessage || error.message)
     }
@@ -86,9 +87,9 @@ export class UserDatabase extends BaseDatabase {
         .from(this.tableNames.user)
 
       return result.map((item) => {
-        return {
+        return User.toUserModel({
           ...item
-        } as User
+        } as User)
       })
     } catch (error) {
       throw new Error(error.sqlMessage || error.message)
