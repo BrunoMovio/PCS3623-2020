@@ -1,4 +1,4 @@
-const BASE_URL = "https://bor.gs/bd_api/"
+const BASE_URL = "http://localhost:5500"
 
 const Consulta = {
     USER: {
