@@ -81,7 +81,6 @@ export class UserDatabase extends BaseDatabase {
   }
 
   public async getAll(): Promise<User[]> {
-    console.log("Bateu aqui")
     try {
       const result = await this.getConnection()
         .select('*')

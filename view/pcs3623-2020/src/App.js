@@ -6,7 +6,14 @@ import axios from "axios";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {route: 'USER.USER_BY_NAME', body: [], result: ''};
+    this.state = {
+      route: 'USER.USER_BY_NAME', 
+      body: [], 
+      result: {result: {result: ""}}, 
+      load: false,
+      tableHead: null,
+      tableBody: null
+    };
 
     this.handleChangeBody = this.handleChangeBody.bind(this);
     this.handleChangeRoute = this.handleChangeRoute.bind(this);
@@ -20,6 +27,7 @@ export default class App extends React.Component {
 
   handleChangeRoute(event) {
     this.setState({route: event.target.value}); 
+    this.setState({body: []});
   }
 
   handleSubmit(event) {
@@ -29,9 +37,9 @@ export default class App extends React.Component {
     const body0 = Object.keys(body)[0]
     const body1 = Object.keys(body)[1]
 
-    if(Object.keys(body).length === 1) {
+    if (Object.keys(body).length === 1) {
       body[body0] = this.state.body[0]
-    } else  if (Object.keys(body).length === 2) {
+    } else if (Object.keys(body).length === 2) {
       body[body0] = this.state.body[0];
       body[body1] = this.state.body[1];
     }
@@ -40,6 +48,7 @@ export default class App extends React.Component {
     .get(url, {params: body})
       .then((resposta) => {
         this.setState({result: resposta.data});
+        this.setState({load: true});
         console.log(resposta.data);
         alert('Uma consulta foi realizada! Confira o resultado abaixo!');
       })
@@ -48,11 +57,44 @@ export default class App extends React.Component {
         console.log(err.message);
         alert('Opa, não rolou! Veja se isso pode te ajudar a conseguir: ' + err.message);
       });
-      
+
     event.preventDefault();
   }
 
+ 
+
   render() {
+    let tableResult = () => {
+      if (this.state.load) {
+        let mapToTableHead = (
+          <tr>{Object.keys(this.state.result.result.result[0]).map((property) => (
+            <th>{String(property)}</th>
+          ))}</tr>
+        )
+        let mapToTableData = this.state.result.result.result.map((object, index) => {
+          const tableData = Object.values(object).map((value) => (
+            <td>{String(value)}</td>
+          ))
+    
+          return (
+            <tr>{tableData}</tr>
+          )
+        })
+
+        return (
+          <table border="1">
+            {mapToTableHead}
+            {mapToTableData}
+          </table>
+        )
+      } else {
+          <table border="1">
+            
+          </table>
+      }
+    }
+    console.log(this.state.result)
+
     return (
       <div class="container">
         <form onSubmit={this.handleSubmit}>
@@ -95,14 +137,19 @@ export default class App extends React.Component {
           <input type="submit" value="Realizar Consulta" />
         </div>
         </form>
-        <h2>Resultado da Consulta:</h2>
-        <em>URL {mapToConsulta(this.state.route).url}</em>     
-        <div> Query Parameters
-            {Object.keys(mapToConsulta(this.state.route).body).map((item, i) => {
+        <div class="description">
+        <h2>Consulta:</h2>
+        <h3>URL</h3>
+        <em>{mapToConsulta(this.state.route).url}</em>  
+        <h3>Query Parameters</h3>   
+        <div> {Object.keys(mapToConsulta(this.state.route).body).map((item, i) => {
               return (<div><b>{item}</b>  <em>{this.state.body[i]}</em> </div>)
             })}
           </div>
-        <p>{JSON.stringify(this.state.result)}</p>
+        </div>
+        <hr></hr>
+        <h2>Resultado:</h2>
+        {tableResult()}
       </div>
     );
   }
