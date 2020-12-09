@@ -19,7 +19,7 @@ app.use("/post", postRouter);
 app.use("/pageEvent", eventRouter);
 app.use("/page", pageRouter);
 
-const server = app.listen(3000, () => {
+const server = app.listen(5500, () => {
   if (server) {
     const address = server.address() as AddressInfo
     console.log(`Servidor rodando em http://localhost:${address.port}`)

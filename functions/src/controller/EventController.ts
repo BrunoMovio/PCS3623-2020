@@ -29,7 +29,7 @@ export class EventController {
                 new IdGenerator
             );
             const eventsResult = await eventBusiness.getEventsUntilDate(
-                req.query.maxDate as string
+                req.body.maxDate as string
             );
 
             res.status(200).send({ eventsResult });

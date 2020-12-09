@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserInputDTO, CurrentUserInputDTO, SearchUserInputDTO, FollowUserInputDTO, UnfollowInputDTO, UserUpdateInputDTO } from "../model/User";
+import { SearchUserInputDTO } from "../model/User";
 import { UserBusiness } from "../business/UserBusiness";
 import { BaseDatabase } from "../data/BaseDatabase";
 import { UserDatabase } from "../data/UserDatabase";
@@ -9,7 +9,7 @@ export class UserController {
     async searchUserByName(req: Request, res: Response) {
         try {
             const input: SearchUserInputDTO = {
-                partialName: req.query.name as string
+                partialName: req.body.name as string
             };
             const userBusiness = new UserBusiness(
                 new UserDatabase,
@@ -33,7 +33,7 @@ export class UserController {
                 new IdGenerator
             );
             const userResult = await userBusiness.getFollowedsByUserId(
-                req.query.currentUserId as string
+                req.body.currentUserId as string
             );
 
             res.status(200).send({ userResult });
@@ -52,7 +52,7 @@ export class UserController {
                 new IdGenerator
             );
             const userResult = await userBusiness.getFollowersByUserId(
-                req.query.currentUserId as string
+                req.body.currentUserId as string
             );
 
             res.status(200).send({ userResult });
@@ -72,7 +72,7 @@ export class UserController {
                 new IdGenerator
             );
             const userResult = await userBusiness.getFeedByUserId(
-                req.query.currentUserId as string
+                req.body.currentUserId as string
             );
 
             res.status(200).send({ userResult });

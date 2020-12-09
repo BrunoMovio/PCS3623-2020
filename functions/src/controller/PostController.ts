@@ -9,7 +9,7 @@ export class PostController {
     async searchByName(req: Request, res: Response) {
         try {
             const input: SearchPostInputDTO = {
-                partialName: req.query.name as string
+                partialName: req.body.name as string
             };
             const postBusiness = new PostBusiness(
                 new PostDatabase,
@@ -33,7 +33,7 @@ export class PostController {
                 new IdGenerator
             );
             const postsResult = await postBusiness.getByUserId(
-                req.query.userId as string
+                req.body.userId as string
             );
 
             res.status(200).send({ postsResult });
@@ -52,8 +52,8 @@ export class PostController {
                 new IdGenerator
             );
             const postsResult = await postBusiness.getByGroupIdAndPageId({
-                groupId: req.query.groupId as string,
-                pageId: req.query.pageId as string
+                groupId: req.body.groupId as string,
+                pageId: req.body.pageId as string
             });
 
             res.status(200).send({ postsResult });

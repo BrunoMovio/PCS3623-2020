@@ -9,7 +9,7 @@ export class PageController {
     async searchPageByName(req: Request, res: Response) {
         try {
             const input: SearchPageInputDTO = {
-                partialName: req.query.name as string
+                partialName: req.body.name as string
             };
             const pageBusiness = new PageBusiness(
                 new PageDatabase,
