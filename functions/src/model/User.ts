@@ -3,7 +3,7 @@ export class User{
     private id: string,
     private name: string,
     private email: string,
-    private phone: string,
+    private phone: number,
     private avatar: string,
     private groupId?: string
     ){}
@@ -44,7 +44,7 @@ export class User{
         this.email = email
     }
 
-    setPhone(phone: string){
+    setPhone(phone: number){
         this.phone = phone
     }
 
@@ -64,7 +64,7 @@ export class User{
 export interface UserInputDTO{
     name: string,
     email: string,
-    phone: string,
+    phone: number,
     avatar: string
 }
 
@@ -72,7 +72,7 @@ export interface UserUpdateInputDTO{
     id: string,
     name?: string,
     email?: string,
-    phone?: string,
+    phone?: number,
     avatar?: string
 }
 
