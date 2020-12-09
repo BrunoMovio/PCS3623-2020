@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS USUARIO (
 CREATE TABLE IF NOT EXISTS RELATION (
     follower_id VARCHAR(255) NOT NULL,
     followed_id VARCHAR(255) NOT NULL,
-    date VARCHAR(255) NOT NULL,
+    date INT NOT NULL,
     PRIMARY KEY (follower_id, followed_id),
     FOREIGN KEY (follower_id) REFERENCES USUARIO (id),
     FOREIGN KEY (followed_id) REFERENCES USUARIO (id)
@@ -31,15 +31,15 @@ CREATE TABLE IF NOT EXISTS PAGINA (
     id VARCHAR(255) PRIMARY KEY,
     admin_id VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL UNIQUE,
-    description INT NOT NULL,
-    banner INT NOT NULL,
+    description VARCHAR(255 NOT NULL,
+    banner VARCHAR(255) NOT NULL,
     FOREIGN KEY (admin_id) REFERENCES USUARIO (id)
 );
 
 CREATE TABLE IF NOT EXISTS CURTIDAS_PAGINA (
     user_id VARCHAR(255) NOT NULL,
     page_id VARCHAR(255) NOT NULL,
-    date VARCHAR(255) NOT NULL,
+    date INT NOT NULL,
     PRIMARY KEY (user_id, page_id),
     FOREIGN KEY (user_id) REFERENCES USUARIO (id),
     FOREIGN KEY (page_id) REFERENCES PAGINA (id)
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS EVENTO (
     admin_id VARCHAR(255) NOT NULL,
     page_id VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL UNIQUE,
-    description INT NOT NULL,
+    description VARCHAR(255 NOT NULL,
     date INT NOT NULL,
     local VARCHAR(255) NOT NULL,
     FOREIGN KEY (admin_id) REFERENCES USUARIO (id),
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS POST (
     id VARCHAR(255) PRIMARY KEY,
     user_id VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL UNIQUE,
-    description INT NOT NULL,
+    description VARCHAR(255 NOT NULL,
     image VARCHAR(255) NOT NULL,
     event_id VARCHAR(255),
     group_id VARCHAR(255),
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS POST (
 CREATE TABLE IF NOT EXISTS CURTIDAS_POST (
     post_id VARCHAR(255) NOT NULL,
     user_id VARCHAR(255) NOT NULL,
-    date VARCHAR(255) NOT NULL,
+    date INT NOT NULL,
     PRIMARY KEY (follower_id, followed_id),
     FOREIGN KEY (post_id) REFERENCES POST (id),
     FOREIGN KEY (user_id) REFERENCES USUARIO (id)
