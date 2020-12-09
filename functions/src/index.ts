@@ -7,10 +7,11 @@ import { postRouter } from "./routes/PostRouter";
 import { eventRouter } from "./routes/EventRouter";
 import { pageRouter } from "./routes/PageRouter";
 
-
 dotenv.config();
-const app = express();
 
+const cors = require('cors')
+const app = express();
+app.use(cors())
 app.use(express.json());
 
 app.use("/user", userRouter);

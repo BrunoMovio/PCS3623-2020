@@ -11,7 +11,7 @@ export class EventController {
                 new EventDatabase,
                 new IdGenerator
             );
-            const eventsResult = await eventBusiness.getEventByPageId(req.body.pageId as string);
+            const eventsResult = await eventBusiness.getEventByPageId(req.query.pageId as string);
 
             res.status(200).send({ eventsResult });
 
@@ -29,7 +29,7 @@ export class EventController {
                 new IdGenerator
             );
             const eventsResult = await eventBusiness.getEventsUntilDate(
-                req.body.maxDate as string
+                req.query.maxDate as string
             );
 
             res.status(200).send({ eventsResult });

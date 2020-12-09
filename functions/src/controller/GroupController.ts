@@ -11,7 +11,7 @@ export class GroupController {
                 new GroupDatabase,
                 new IdGenerator
             );
-            const usersResult = await groupBusiness.getUsersByGroupId(req.body.groupId);
+            const usersResult = await groupBusiness.getUsersByGroupId(req.query.groupId as string);
 
             res.status(200).send({ usersResult });
 
@@ -28,7 +28,7 @@ export class GroupController {
                 new GroupDatabase,
                 new IdGenerator
             );
-            const groupsResult = await groupBusiness.getByAdminId(req.body.adminId);
+            const groupsResult = await groupBusiness.getByAdminId(req.query.adminId as string);
 
             res.status(200).send({ result: groupsResult });
 

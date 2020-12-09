@@ -9,15 +9,15 @@ export class PageController {
     async searchPageByName(req: Request, res: Response) {
         try {
             const input: SearchPageInputDTO = {
-                partialName: req.body.name as string
+                partialName: req.query.name as string
             };
             const pageBusiness = new PageBusiness(
                 new PageDatabase,
                 new IdGenerator
             );
-            const pageResult = await pageBusiness.getPagesByPartialName(input);
+            const result = await pageBusiness.getPagesByPartialName(input);
 
-            res.status(200).send({ pageResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -32,11 +32,11 @@ export class PageController {
                 new PageDatabase,
                 new IdGenerator
             );
-            const likesResult = await pageBusiness.getLikesByPageId(
-                req.body.pageId as string
+            const result = await pageBusiness.getLikesByPageId(
+                req.query.pageId as string
             );
 
-            res.status(200).send({ likesResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -51,9 +51,9 @@ export class PageController {
                 new PageDatabase,
                 new IdGenerator
             );
-            const pages = await pageBusiness.getAll();
+            const result = await pageBusiness.getAll();
 
-            res.status(200).send({ pages });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });

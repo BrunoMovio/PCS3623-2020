@@ -1,5 +1,4 @@
 import React from 'react';
-import Consulta from "./utils/Consulta";
 import mapToConsulta from "./utils/mapToConsulta";
 import axios from "axios";
 
@@ -25,6 +24,8 @@ export default class App extends React.Component {
 
   handleSubmit(event) {
     let body = mapToConsulta(this.state.route).body
+    let url = mapToConsulta(this.state.route).url
+
     const body0 = Object.keys(body)[0]
     const body1 = Object.keys(body)[1]
 
@@ -34,22 +35,16 @@ export default class App extends React.Component {
       body[body0] = this.state.body[0];
       body[body1] = this.state.body[1];
     }
-    console.log(body)
-
-    let url = mapToConsulta(this.state.route).url
-    console.log(url)
 
     axios
-    .get(url, {
-       body
-      })
+    .get(url, {params: body})
       .then((resposta) => {
         this.setState({result: resposta.data});
         console.log(resposta.data);
         alert('Uma consulta foi realizada! Confira o resultado abaixo!');
       })
       .catch((err) => {
-        this.setState({result: err.message});
+        this.setState({result: err});
         console.log(err.message);
         alert('Opa, não rolou! Veja se isso pode te ajudar a conseguir: ' + err.message);
       });
@@ -102,12 +97,12 @@ export default class App extends React.Component {
         </form>
         <h2>Resultado da Consulta:</h2>
         <em>URL {mapToConsulta(this.state.route).url}</em>     
-        <div> Body
+        <div> Query Parameters
             {Object.keys(mapToConsulta(this.state.route).body).map((item, i) => {
               return (<div><b>{item}</b>  <em>{this.state.body[i]}</em> </div>)
             })}
           </div>
-        <p>{Consulta[this.state.result]}</p>
+        <p>{JSON.stringify(this.state.result)}</p>
       </div>
     );
   }

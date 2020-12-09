@@ -9,15 +9,15 @@ export class UserController {
     async searchUserByName(req: Request, res: Response) {
         try {
             const input: SearchUserInputDTO = {
-                partialName: req.body.name as string
+                partialName: req.query.name as string
             };
             const userBusiness = new UserBusiness(
                 new UserDatabase,
                 new IdGenerator
             );
-            const userResult = await userBusiness.getUsersByPartialName(input);
+            const result = await userBusiness.getUsersByPartialName(input);
 
-            res.status(200).send({ userResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -32,11 +32,11 @@ export class UserController {
                 new UserDatabase,
                 new IdGenerator
             );
-            const userResult = await userBusiness.getFollowedsByUserId(
-                req.body.currentUserId as string
+            const result = await userBusiness.getFollowedsByUserId(
+                req.query.currentUserId as string
             );
 
-            res.status(200).send({ userResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -51,11 +51,11 @@ export class UserController {
                 new UserDatabase,
                 new IdGenerator
             );
-            const userResult = await userBusiness.getFollowersByUserId(
-                req.body.currentUserId as string
+            const result = await userBusiness.getFollowersByUserId(
+                req.query.currentUserId as string
             );
 
-            res.status(200).send({ userResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -71,11 +71,11 @@ export class UserController {
                 new UserDatabase,
                 new IdGenerator
             );
-            const userResult = await userBusiness.getFeedByUserId(
-                req.body.currentUserId as string
+            const result = await userBusiness.getFeedByUserId(
+                req.query.currentUserId as string
             );
 
-            res.status(200).send({ userResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -90,9 +90,9 @@ export class UserController {
                 new UserDatabase,
                 new IdGenerator
             );
-            const users = await userBusiness.getAll();
+            const result = await userBusiness.getAll();
 
-            res.status(200).send({ users });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });

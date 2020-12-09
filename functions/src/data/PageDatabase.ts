@@ -36,7 +36,7 @@ export class PageDatabase extends BaseDatabase {
     try {
       const result = await this.getConnection()
         .select('*')
-        .from(this.tableNames.user)
+        .from(this.tableNames.page)
 
       return result.map((item) => {
         return Page.toPageModel({

@@ -9,15 +9,15 @@ export class PostController {
     async searchByName(req: Request, res: Response) {
         try {
             const input: SearchPostInputDTO = {
-                partialName: req.body.name as string
+                partialName: req.query.name as string
             };
             const postBusiness = new PostBusiness(
                 new PostDatabase,
                 new IdGenerator
             );
-            const postsResult = await postBusiness.getPostByPartialName(input);
+            const result = await postBusiness.getPostByPartialName(input);
 
-            res.status(200).send({ postsResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -32,11 +32,11 @@ export class PostController {
                 new PostDatabase,
                 new IdGenerator
             );
-            const postsResult = await postBusiness.getByUserId(
-                req.body.userId as string
+            const result = await postBusiness.getByUserId(
+                req.query.userId as string
             );
 
-            res.status(200).send({ postsResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -51,12 +51,12 @@ export class PostController {
                 new PostDatabase,
                 new IdGenerator
             );
-            const postsResult = await postBusiness.getByGroupIdAndPageId({
-                groupId: req.body.groupId as string,
-                pageId: req.body.pageId as string
+            const result = await postBusiness.getByGroupIdAndPageId({
+                groupId: req.query.groupId as string,
+                pageId: req.query.pageId as string
             });
 
-            res.status(200).send({ postsResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -71,9 +71,9 @@ export class PostController {
                 new PostDatabase,
                 new IdGenerator
             );
-            const posts = await postBusiness.getAll();
+            const result = await postBusiness.getAll();
 
-            res.status(200).send({ posts });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
