@@ -40,7 +40,7 @@ export default class App extends React.Component {
     console.log(url)
 
     axios
-    .get(this.state.route, {
+    .get(url, {
        body
       })
       .then((resposta) => {
@@ -49,6 +49,7 @@ export default class App extends React.Component {
         alert('Uma consulta foi realizada! Confira o resultado abaixo!');
       })
       .catch((err) => {
+        this.setState({result: err.message});
         console.log(err.message);
         alert('Opa, não rolou! Veja se isso pode te ajudar a conseguir: ' + err.message);
       });
