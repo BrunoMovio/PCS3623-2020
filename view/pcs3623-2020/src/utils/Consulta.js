@@ -1,4 +1,4 @@
-const BASE_URL = "bor.gs/db_api"
+const BASE_URL = "https://pcs3623-2020.herokuapp.com"
 
 const Consulta = {
     USER: {
@@ -94,19 +94,19 @@ const Consulta = {
     },
     EVENT: {
       EVENT_BY_PAGE: {
-        url: BASE_URL + "/event/searchByPage",
+        url: BASE_URL + "/pageEvent/searchByPage",
         body: {
           pageId: ""
         }
       },
       EVENT_BY_DATE: {
-        url: BASE_URL + "/event/searchByDate",
+        url: BASE_URL + "/pageEvent/searchByDate",
         body: {
           maxDate: ""
         }
       },
       ALL_EVENTS: {
-        url: BASE_URL + "/event/all",
+        url: BASE_URL + "/pageEvent/all",
         body: {}
       }
     }

@@ -11,9 +11,9 @@ export class GroupController {
                 new GroupDatabase,
                 new IdGenerator
             );
-            const usersResult = await groupBusiness.getUsersByGroupId(req.query.groupId as string);
+            const result = await groupBusiness.getUsersByGroupId(req.query.groupId as string);
 
-            res.status(200).send({ usersResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -28,9 +28,9 @@ export class GroupController {
                 new GroupDatabase,
                 new IdGenerator
             );
-            const groupsResult = await groupBusiness.getByAdminId(req.query.adminId as string);
+            const result = await groupBusiness.getByAdminId(req.query.adminId as string);
 
-            res.status(200).send({ result: groupsResult });
+            res.status(200).send({ result: result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -45,9 +45,9 @@ export class GroupController {
                 new GroupDatabase,
                 new IdGenerator
             );
-            const groupList = await groupBusiness.getAll();
+            const result = await groupBusiness.getAll();
 
-            res.status(200).send({ groupList });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });

@@ -11,9 +11,9 @@ export class EventController {
                 new EventDatabase,
                 new IdGenerator
             );
-            const eventsResult = await eventBusiness.getEventByPageId(req.query.pageId as string);
+            const result = await eventBusiness.getEventByPageId(req.query.pageId as string);
 
-            res.status(200).send({ eventsResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -28,11 +28,11 @@ export class EventController {
                 new EventDatabase,
                 new IdGenerator
             );
-            const eventsResult = await eventBusiness.getEventsUntilDate(
+            const result = await eventBusiness.getEventsUntilDate(
                 req.query.maxDate as string
             );
 
-            res.status(200).send({ eventsResult });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
@@ -47,9 +47,9 @@ export class EventController {
                 new EventDatabase,
                 new IdGenerator
             );
-            const events = await eventBusiness.getAll();
+            const result = await eventBusiness.getAll();
 
-            res.status(200).send({ events });
+            res.status(200).send({ result });
 
         } catch (error) {
             res.status(400).send({ error: error.message });
